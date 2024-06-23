@@ -5,7 +5,8 @@ import './employees-list.css';
 const EmployeesList = ({employeesData}) => {
 
     const employeesElements = employeesData.map((employee) => {
-        return <EmployeesItem key={employee.id} name={employee.name} salary={employee.salary} isIncrease={employee.isIncrease}/>
+        const {id, ...employeesProps} = employee;
+        return <EmployeesItem key={id} {...employeesProps}/>
     });
 
     return (
