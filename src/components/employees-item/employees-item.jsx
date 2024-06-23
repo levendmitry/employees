@@ -10,13 +10,13 @@ class EmployeesItem extends Component {
             isLike: false
         }
     }
-
+    //Toggle increase of salary(печенька) for employee in the list
     toggleIncrease = () => {
         this.setState(({isIncrease}) => ({
             isIncrease: !isIncrease
         }))
     }
-
+    //Toggle rise for employee in the list (star)
     toggleLike = () => {
         this.setState(({isLike}) => ({
             isLike: !isLike
@@ -25,7 +25,7 @@ class EmployeesItem extends Component {
     
     render() {
 
-        const {name, salary} = this.props,
+        const {name, salary, onDelete} = this.props,
             {isIncrease, isLike} = this.state,
             isIncreaseClass = isIncrease ? " increase" : "",
             isLikeClass = isLike ? " like" : "";
@@ -52,6 +52,7 @@ class EmployeesItem extends Component {
                         <button
                             type="button"
                             className="btn-trash btn-sm "
+                            onClick={onDelete}
                         >
                             <i className="fas fa-trash"></i>
                         </button>
