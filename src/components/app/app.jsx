@@ -21,6 +21,14 @@ class App extends Component {
         }
     }
 
+    employeesCount = () => {
+        return this.state.employeesData.length;
+    }
+
+    riseCount = () => {
+        return this.state.employeesData.filter(employees => employees.isIncrease === true).length;
+    }
+
     //Add employee in the list
     addItem = (name, salary) => {
         const newEmployee = {
@@ -79,7 +87,10 @@ class App extends Component {
         return (
             <div className="app">
     
-                <HeaderInfo/>
+                <HeaderInfo employeesCount={() => this.employeesCount()}
+                    increaseCount={() => this.riseCount()}
+                
+                />
                 <div className="search-panel">
                     <SearchPanel/>
                     <Filter/>
