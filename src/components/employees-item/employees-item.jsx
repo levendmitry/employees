@@ -2,7 +2,7 @@
 
 import './employees-item.css';
 
-const EmployeesItem = ({name, salary, onDelete, onToggleIncrease, onToggleRise, isIncrease, isRise}) => {
+const EmployeesItem = ({name, salary, onDelete, onToggleProp, isIncrease, isRise}) => {
     
     const isIncreaseClass = isIncrease ? " increase" : "",
           isLikeClass = isRise ? " like" : "";
@@ -10,7 +10,8 @@ const EmployeesItem = ({name, salary, onDelete, onToggleIncrease, onToggleRise, 
     return (
             <li className={"list-group-item d-flex justify-content-between" + isIncreaseClass + isLikeClass}>
                 <span className={"list-group-item-label"}
-                    onClick={onToggleRise}
+                    onClick={onToggleProp}
+                    data-toggle="isRise"
                 >
                     {name}
                 </span>
@@ -19,9 +20,10 @@ const EmployeesItem = ({name, salary, onDelete, onToggleIncrease, onToggleRise, 
                     defaultValue={salary + "$"}
                 />
                 <div className='d-flex justify-content-center align-items-center'>
-                    <button onClick={onToggleIncrease}
+                    <button onClick={onToggleProp}
                         type="button"
                         className="btn-cookie btn-sm "
+                        data-toggle="isIncrease"
                     >
                         <i className="fas fa-cookie"></i>
                     </button>
