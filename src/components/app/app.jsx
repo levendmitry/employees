@@ -31,6 +31,7 @@ class App extends Component {
 
     //Add employee in the list
     addItem = (name, salary) => {
+        if ( name.length < 3 || )
         const newEmployee = {
             id: uuidv4(), //Рассмотреть UUIDGEN
             name: name,

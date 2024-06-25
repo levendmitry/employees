@@ -12,6 +12,18 @@ class EmployeesAddForm extends Component {
       }
     }
 
+    isValidName = (name) => {
+      // validation employee name
+      const pattern = /^([А-Я]{1}[а-яё]{1,23}) ([А-Я]{1}[а-яё]{1,23})$/;
+      return pattern.test(name);
+    }
+
+    isValidSalary = (salary) => {
+      // validation employee salary
+      const pattern = /^([0-9]{1,10})$/
+      return pattern.test(salary);
+    }
+
     onValueChange = (event) => {
       this.setState({
         [event.target.name]: event.target.value,
@@ -21,6 +33,14 @@ class EmployeesAddForm extends Component {
 
     onSubmit = (event) => {
       event.preventDefault();
+      if (!this.isValidName(this.state.name)) {
+        console.log("hui");
+        return;
+      }
+      if (!this.isValidSalary(this.state.salary)) {
+        console.log("pi3da");
+        return;
+      }
       this.props.onAdd(this.state.name, this.state.salary);
       this.setState({
         name: "",
