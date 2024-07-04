@@ -17,14 +17,61 @@ class App extends Component {
                 {id: "1", name: "Ivan", salary: 800, isIncrease: false, isRise: false},
                 {id: "2", name: "Alex", salary: 1000, isIncrease: false, isRise: false},
                 {id: "3", name: "Maria", salary: 1500, isIncrease: false, isRise: false}
-            ]
+            ],
+            searchString: "",
+            filters: {
+                isAllFilter: true,
+                isMore1000Filter: false,
+                isRiseFilter: false
+            }
+        }
+        
+    }
+    //drill state from search panel
+    onSearchChange = (searchString) => this.setState({searchString});
+
+    //search function filters items by search string from search panel
+    onEmployeeSearch = (searchString, items) => {
+        if (searchString.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(searchString) > - 1
+        });
+    }
+
+    //set state from filter panel
+    onFilterChange = (filterName) => {
+        const filters = {...this.state.filters, [filterName]: !this.state.filters[filterName]};
+        this.setState({filters});
+    }
+
+    //filters employees by pressed buttons on the filter panel?????????????
+    onEmployeesFilter = (filters, items) => {
+        if (!filters.isAllFilter && !filters.isMore1000Filter && !filters.isRiseFilter) {
+            return [];
+        }
+        if (filters.isAllFilter && !filters.isMore1000Filter && !filters.isRiseFilter) {
+            return items;
+        }
+        if (filters.isMore1000Filter && !filters.isRiseFilter) {
+            return items.filter(item => item.salary >= 1000);
+        }
+        if (filters.isRiseFilter  && !filters.isMore1000Filter) {
+            return items.filter(item => item.isRise);
+        }
+        if (filters.isRiseFilter && filters.isMore1000Filter) {
+            return items.filter(item => item.isRise && item.salary >= 1000);
         }
     }
 
+    //employees counter in the header
     employeesCount = () => {
         return this.state.employeesData.length;
     }
 
+    //Rise employees counter in the header
     riseCount = () => {
         return this.state.employeesData.filter(employees => employees.isIncrease === true).length;
     }
@@ -72,7 +119,8 @@ class App extends Component {
 
 
     render() {
-        const {employeesData} = this.state;
+        const {employeesData, searchString, filters} = this.state;
+        const visibleData = this.onEmployeesFilter(filters, this.onEmployeeSearch(searchString, employeesData));
         return (
             <div className="app">
     
@@ -81,11 +129,16 @@ class App extends Component {
                 
                 />
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <Filter/>
+                    <SearchPanel
+                        onUpdateSearch={this.onSearchChange}                    
+                    />
+                    <Filter
+                        filtersState={filters}
+                        onFilterChange={this.onFilterChange}
+                    />
                 </div>
                 <EmployeesList
-                    employeesData={employeesData}
+                    employeesData={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                 />

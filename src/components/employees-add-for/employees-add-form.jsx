@@ -34,11 +34,11 @@ class EmployeesAddForm extends Component {
     onSubmit = (event) => {
       event.preventDefault();
       if (!this.isValidName(this.state.name)) {
-        console.log("hui");
+        console.log("Имя Фамилия");
         return;
       }
       if (!this.isValidSalary(this.state.salary)) {
-        console.log("pi3da");
+        console.log("не более 10 знаков");
         return;
       }
       this.props.onAdd(this.state.name, this.state.salary);
