@@ -18,17 +18,17 @@ const Filter = (props) => {
     const buttons = buttonsData.map(({id, name, label}) => {
 
         return (
-            <button type="button"
-                    className={toggleActiveClass(props.filtersState[name])}
-                    key={id}
-                    onClick={() => props.onFilterChange(name)}>
-                    {label}
-            </button>
+                <button type="button"
+                        className={toggleActiveClass(props.filtersState[name])}
+                        key={id}
+                        onClick={() => props.onFilterChange(name)}>
+                        {label}
+                </button>
         )
     })
 
     return (
-        <div className="btn-group">
+        <div className="btn-group filter">
             {buttons}
         </div>
     )
